@@ -1,5 +1,6 @@
 const playerScoreEl = document.getElementById('player-score');
 const playerChoiceEl = document.getElementById('player-choice');
+const computerScoreEl = document.getElementById('computer-score');
 const computerChoiceEl = document.getElementById('computer-choice');
 const resultText = document.getElementById('result-text');
 
@@ -17,6 +18,8 @@ const computerSpock = document.getElementById('computer-spock');
 
 const allGameIcons = document.querySelectorAll('.far');
 
+let playerScoreNumber = 0;
+let computerScoreNumber = 0;
 let computerChoice = '';
 const choices = {
     rock: { name: 'Rock', defeats: ['scissors', 'lizard'] },
@@ -73,15 +76,34 @@ const displayComputerChoice = () => {
     }
 };
 
+// Check result, increase score, update result text
+const updateScore = (playerChoice) => {
+    if (playerChoice === computerChoice) {
+        resultText.textContent = "It's a tie.";
+    } else {
+        const choice = choices[playerChoice];
+        if (choice.defeats.indexOf(computerChoice) > -1) {
+            resultText.textContent = 'You Won!';
+            playerScoreNumber++;
+            playerScoreEl.textContent = playerScoreNumber;
+        } else {
+            resultText.textContent = 'You Lost!';
+            computerScoreNumber++;
+            computerScoreEl.textContent = computerScoreNumber;
+        }
+    }
+};
+
 // Call functions to process turn
-const checkResult = () => {
+const checkResult = (playerChoice) => {
     resetSelected();
     computerRandomChoice();
+    updateScore(playerChoice);
 };
 
 // Passing player selection value, styling icons
 const select = (playerChoice) => {
-    checkResult();
+    checkResult(playerChoice);
     // Add selected styling & player choice
     switch (playerChoice) {
         case 'rock':
