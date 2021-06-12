@@ -17,6 +17,7 @@ const computerSpock = document.getElementById('computer-spock');
 
 const allGameIcons = document.querySelectorAll('.far');
 
+let computerChoice = '';
 const choices = {
     rock: { name: 'Rock', defeats: ['scissors', 'lizard'] },
     paper: { name: 'Paper', defeats: ['rock', 'spock'] },
@@ -32,9 +33,55 @@ const resetSelected = () => {
     });
 };
 
+// Random Computer choice
+const computerRandomChoice = () => {
+    const computerChoiceNumber = Math.random();
+    if (computerChoiceNumber < 0.2) computerChoice = 'rock';
+    else if (computerChoiceNumber <= 0.4) computerChoice = 'paper';
+    else if (computerChoiceNumber <= 0.6) computerChoice = 'scissors';
+    else if (computerChoiceNumber <= 0.8) computerChoice = 'lizard';
+    else computerChoice = 'spock';
+
+    displayComputerChoice();
+};
+
+// Add selected styling and computer choice
+const displayComputerChoice = () => {
+    switch (computerChoice) {
+        case 'rock':
+            computerRock.classList.add('selected');
+            computerChoiceEl.textContent = ' --- Rock';
+            break;
+        case 'paper':
+            computerPaper.classList.add('selected');
+            computerChoiceEl.textContent = ' --- Paper';
+            break;
+        case 'scissors':
+            computerScissors.classList.add('selected');
+            computerChoiceEl.textContent = ' --- Scissors';
+            break;
+        case 'lizard':
+            computerLizard.classList.add('selected');
+            computerChoiceEl.textContent = ' --- Lizard';
+            break;
+        case 'spock':
+            computerSpock.classList.add('selected');
+            computerChoiceEl.textContent = ' --- Spock';
+            break;
+        default:
+            break;
+    }
+};
+
+// Call functions to process turn
+const checkResult = () => {
+    resetSelected();
+    computerRandomChoice();
+};
+
 // Passing player selection value, styling icons
 const select = (playerChoice) => {
-    resetSelected();
+    checkResult();
     // Add selected styling & player choice
     switch (playerChoice) {
         case 'rock':
