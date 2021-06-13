@@ -95,7 +95,7 @@ const displayComputerChoice = () => {
 
 // Check result, increase score, update result text
 const updateScore = (playerChoice) => {
-    startConfetti();
+    stopConfetti();
     removeConfetti();
     if (playerChoice === computerChoice) {
         resultText.textContent = "It's a tie.";
