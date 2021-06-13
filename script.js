@@ -40,6 +40,8 @@ const resetSelected = () => {
 
 // Reset score and Player/Computer choice
 const resetAll = () => {
+    startConfetti();
+    removeConfetti();
     playerScoreNumber = 0;
     computerScoreNumber = 0;
     playerScoreEl.textContent = 0;
