@@ -1,3 +1,5 @@
+import { startConfetti, stopConfetti, removeConfetti } from './confetti.js';
+
 const playerScoreEl = document.getElementById('player-score');
 const playerChoiceEl = document.getElementById('player-choice');
 const computerScoreEl = document.getElementById('computer-score');
@@ -47,6 +49,7 @@ const resetAll = () => {
     resultText.textContent = '';
     resetSelected();
 };
+window.resetAll = resetAll;
 
 // Random Computer choice
 const computerRandomChoice = () => {
@@ -90,11 +93,14 @@ const displayComputerChoice = () => {
 
 // Check result, increase score, update result text
 const updateScore = (playerChoice) => {
+    startConfetti();
+    removeConfetti();
     if (playerChoice === computerChoice) {
         resultText.textContent = "It's a tie.";
     } else {
         const choice = choices[playerChoice];
         if (choice.defeats.indexOf(computerChoice) > -1) {
+            startConfetti();
             resultText.textContent = 'You Won!';
             playerScoreNumber++;
             playerScoreEl.textContent = playerScoreNumber;
@@ -142,3 +148,4 @@ const select = (playerChoice) => {
             break;
     }
 };
+window.select = select;
